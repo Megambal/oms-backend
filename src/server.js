@@ -1,0 +1,6 @@
+// src/server.js
+require('dotenv').config()
+
+const app = require('./app')
+
+app.listen({ port: process.env.PORT || 3000, host: '0.0.0.0' })

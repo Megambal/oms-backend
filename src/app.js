@@ -1,19 +1,10 @@
-import Fastify from 'fastify'
-import loadConfig from './config/env.js'
-import dbPlugin from './plugins/db.js'
+// src/app.js
+const fastify = require('fastify')({ logger: true })
 
+fastify.register(require('./modules/orders/order.routes'))
 
-const config = loadConfig()
-
-const app = Fastify({
-  logger: {
-    level: config.LOG_LEVEL
-  }
+fastify.get('/health', async () => {
+  return { status: 'ok' }
 })
 
-// make config available everywhere
-app.decorate('config', config)
-
-app.register(dbPlugin)
-
-export default app
+module.exports = fastify
